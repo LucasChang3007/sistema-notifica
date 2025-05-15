@@ -1,5 +1,6 @@
 using System.Drawing.Printing;
 using SistemaNotifica.src.Forms;
+using SistemaNotifica.src.Forms.Principal;
 
 namespace SistemaNotifica
 {
@@ -7,6 +8,7 @@ namespace SistemaNotifica
     {
         //Thread nt;
         public Form objForm;
+        private string TelaAtual = string.Empty; //Verificar se esta funcionando corretamente em TODOS
 
         public FormOrigin()
         {
@@ -25,11 +27,10 @@ namespace SistemaNotifica
             if (sidebarExpand)
             {
                 sidebarMenu.Width -= 10;
-                if (sidebarMenu.Width <= 50)
+                if (sidebarMenu.Width <= 60)
                 {
                     sidebarExpand = false;
                     sidebarTransition.Stop();
-                    // ajusta o tamanho dos containers dos botões dentro do width do menu
                     adjustWidth(sidebarMenu.Width);
                 }
 
@@ -41,8 +42,6 @@ namespace SistemaNotifica
                 {
                     sidebarExpand = true;
                     sidebarTransition.Stop();
-
-                    // ajusta o tamanho dos containers dos botões dentro do width do menu
                     adjustWidth(sidebarMenu.Width);
 
                 }
@@ -65,6 +64,7 @@ namespace SistemaNotifica
 
         private void btnHome_Click(object sender, EventArgs e)
         {
+            if (TelaAtual == "FormHome") return; //Verificar se esta funcionando corretamente em TODOS
             objForm?.Close();
             objForm = new FormHome
             {
@@ -73,15 +73,103 @@ namespace SistemaNotifica
                 Dock = DockStyle.Fill
             };
 
+            TelaAtual = "FormHome"; //Verificar se esta funcionando corretamente em TODOS
             pnlMain.Controls.Add(objForm);
             objForm.Show();
         }
 
         private void btnImportarDoc_Click(object sender, EventArgs e)
         {
+            if (TelaAtual == "formImport") return;
+            objForm?.Close();
+            objForm = new FormImport
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
 
+            TelaAtual = "FormImport";
+            pnlMain.Controls.Add(objForm);
+            objForm.Show();
         }
 
+        private void btnDados_Click(object sender, EventArgs e)
+        {
+            if (TelaAtual == "FormData") return;
+            objForm?.Close();
+            objForm = new FormData
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle,
+                Dock = DockStyle.Fill
+            };
+
+            TelaAtual = "FormData";
+            pnlMain.Controls.Add(objForm);
+            objForm.Show();
+        }
+
+        private void btnUsuario_Click(object sender, EventArgs e)
+        {
+            if (TelaAtual == "FormUser") return;
+            objForm?.Close();
+            objForm = new FormUser
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle,
+                Dock = DockStyle.Fill
+            };
+
+            TelaAtual = "FormUser";
+            pnlMain.Controls.Add(objForm);
+            objForm.Show();
+        }
+
+        private void btnConfig_Click(object sender, EventArgs e)
+        {
+            if (TelaAtual == "FormSettings") return;
+            objForm?.Close();
+            objForm = new FormSettings
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle,
+                Dock = DockStyle.Fill
+            };
+
+            TelaAtual = "FormSettings";
+            pnlMain.Controls.Add(objForm);
+            objForm.Show();
+        }
+
+        private void btnSobre_Click(object sender, EventArgs e)
+        {
+
+            if (TelaAtual == "FormSobre") return;
+            objForm?.Close();
+            objForm = new FormSobre 
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle,
+                Dock = DockStyle.Fill
+            };
+
+            TelaAtual = "FormSobre";
+            pnlMain.Controls.Add(objForm);
+            objForm.Show();
+        }
+
+        private void btnLogOut_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+            Thread nt = new Thread(() =>
+            {
+                Application.Run(new FormLogin());
+            });
+            nt.SetApartmentState(ApartmentState.STA);
+            nt.Start();
+        }
         // A PRIMEIRA TELA A SER APRESENTADA PRECISA SER A HOME
         private void pnlMain_Paint(object sender, PaintEventArgs e)
         {
