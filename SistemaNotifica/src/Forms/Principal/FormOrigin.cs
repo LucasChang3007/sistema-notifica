@@ -8,7 +8,8 @@ namespace SistemaNotifica
     {
         //Thread nt;
         public Form objForm;
-        private string TelaAtual = string.Empty; //Verificar se esta funcionando corretamente em TODOS
+        private string TelaAtual = string.Empty; //Verificar se esta funcionando corretamente(valida a tela atual, se for == nao recarrega a pagina)
+
 
         public FormOrigin()
         {
